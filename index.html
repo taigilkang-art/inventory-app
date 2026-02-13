@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#4285f4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="재고조회">
+    <title>재고 조회 시스템</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>재고 조회</h1>
+        </header>
+
+        <main>
+            <div class="search-section">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="partNumber" 
+                        placeholder="품번을 입력하세요"
+                        autocomplete="off"
+                    >
+                    <button id="searchBtn" class="btn-primary">조회</button>
+                </div>
+            </div>
+
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>조회 중...</p>
+            </div>
+
+            <div id="error" class="error-message hidden"></div>
+
+            <div id="result" class="result-section hidden">
+                <div class="result-card">
+                    <div class="result-header">
+                        <h2>조회 결과</h2>
+                        <p id="resultCount" style="margin-top: 8px; font-size: 14px; opacity: 0.9;"></p>
+                    </div>
+                    <div class="result-body">
+                        <div class="result-item">
+                            <span class="label">품번:</span>
+                            <span class="value" id="resultPartNumber"></span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">품목명:</span>
+                            <span class="value" id="resultItemName"></span>
+                        </div>
+                    </div>
+                    <div id="colorList"></div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>재고 조회 시스템 v1.0</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
