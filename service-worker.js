@@ -1,10 +1,10 @@
-const CACHE_NAME = 'inventory-app-v1';
+const CACHE_NAME = 'inventory-app-v2';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/css/style.css',
-  '/js/app.js',
-  '/manifest.json'
+  './',
+  './index.html',
+  './css/style.css',
+  './js/app.js',
+  './manifest.json'
 ];
 
 self.addEventListener('install', event => {
@@ -42,3 +42,4 @@ self.addEventListener('activate', event => {
     })
   );
 });
+
