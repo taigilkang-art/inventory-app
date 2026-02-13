@@ -200,7 +200,7 @@ input[type="text"]:focus {
 .result-item .value {
     font-weight: 600;
     color: var(--text-primary);
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .result-item.highlight .value {
@@ -400,3 +400,4 @@ footer {
         justify-content: space-around;
     }
 }
+
