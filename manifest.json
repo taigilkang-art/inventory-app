@@ -2,11 +2,12 @@
   "name": "재고조회",
   "short_name": "재고조회",
   "description": "재고 조회 시스템",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4285f4",
   "orientation": "portrait",
+  "scope": "./",
   "icons": [
     {
       "src": "images/icon-192.png",
@@ -22,3 +23,4 @@
     }
   ]
 }
+
