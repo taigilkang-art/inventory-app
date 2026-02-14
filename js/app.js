@@ -55,7 +55,7 @@ async function handleSearch() {
     const partNumber = elements.partNumberInput.value.trim();
     
     if (!partNumber) {
-        showError('품번을 입력해주세요.');
+        showError('대문자로 품번을 입력해주세요(기준일:2월05일)');
         return;
     }
 
@@ -225,3 +225,4 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+
