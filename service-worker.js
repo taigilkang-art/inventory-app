@@ -1,4 +1,4 @@
-const CACHE_NAME = 'inventory-app-v2';
+const CACHE_NAME = 'inventory-app-v3';
 const urlsToCache = [
   './',
   './index.html',
@@ -42,4 +42,5 @@ self.addEventListener('activate', event => {
     })
   );
 });
+
 
