@@ -401,3 +401,10 @@ footer {
     }
 }
 
+
+
+/* placeholder 로딩 상태: 빨간색 */
+#partNumber.loading::placeholder {
+    color: var(--error-color);
+    opacity: 1;
+}
