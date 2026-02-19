@@ -250,8 +250,23 @@ function hideAll() {
 
 // 숫자 포맷팅
 function formatNumber(value) {
-    const num = parseInt(value);
-    if (isNaN(num)) return value;
+    // 값이 없으면 원본 반환
+    if (value === null || value === undefined || value === '') {
+        return value || '0';
+    }
+    
+    // 문자열로 변환하고 쉼표 제거
+    const cleanValue = value.toString().replace(/,/g, '');
+    
+    // 숫자로 파싱
+    const num = parseInt(cleanValue, 10);
+    
+    // 숫자가 아니면 원본 반환
+    if (isNaN(num)) {
+        return value;
+    }
+    
+    // 천 단위 구분 쉼표 추가
     return num.toLocaleString('ko-KR');
 }
 
