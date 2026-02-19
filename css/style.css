@@ -404,7 +404,21 @@ footer {
 
 
 /* placeholder 로딩 상태: 빨간색 */
-#partNumber.loading::placeholder {
+#partNumber.ph-loading::placeholder {
     color: var(--error-color);
     opacity: 1;
+}
+
+
+/* 입력/버튼 비활성화 UX */
+input[type="text"]:disabled {
+    background: var(--bg-light);
+    cursor: not-allowed;
+    opacity: 0.85;
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    box-shadow: none;
 }

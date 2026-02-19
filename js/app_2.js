@@ -58,26 +58,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // sheet2의 A1 셀 데이터를 가져오는 함수
 async function loadPlaceholderText() {
+    // 로딩 상태: 빨간 placeholder
+    elements.partNumberInput.classList.add('loading');
+    elements.partNumberInput.placeholder = '잠시만 기다리세요';
+
     try {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${CONFIG.SPREADSHEET_ID}/values/${CONFIG.INFO_SHEET_NAME}!A1?key=${CONFIG.API_KEY}`;
         const response = await fetch(url);
-        
+
         if (!response.ok) {
             console.log('sheet2 A1 셀 데이터를 가져올 수 없습니다.');
+            // 로딩 실패해도 입력은 가능하도록 기본 안내로 전환
+            elements.partNumberInput.placeholder = '품번을 입력하세요';
             return;
         }
-        
+
         const data = await response.json();
-        
+
         if (data.values && data.values.length > 0 && data.values[0].length > 0) {
             const cellValue = data.values[0][0];
             elements.partNumberInput.placeholder = `품번을 입력하세요(${cellValue})`;
+        } else {
+            elements.partNumberInput.placeholder = '품번을 입력하세요';
         }
     } catch (error) {
         console.log('sheet2 A1 셀 데이터 로드 실패:', error);
-        // 에러가 발생해도 기본 placeholder 유지
+        // 에러가 발생해도 입력은 가능하도록 기본 안내로 전환
+        elements.partNumberInput.placeholder = '품번을 입력하세요';
+    } finally {
+        // ✅ 로딩 종료: placeholder 색상 기본으로 복귀
+        elements.partNumberInput.classList.remove('loading');
     }
 }
+
 
 // 검색 처리
 async function handleSearch() {
@@ -237,8 +250,23 @@ function hideAll() {
 
 // 숫자 포맷팅
 function formatNumber(value) {
-    const num = parseInt(value);
-    if (isNaN(num)) return value;
+    // 값이 없으면 원본 반환
+    if (value === null || value === undefined || value === '') {
+        return value || '0';
+    }
+    
+    // 문자열로 변환하고 쉼표 제거
+    const cleanValue = value.toString().replace(/,/g, '');
+    
+    // 숫자로 파싱
+    const num = parseInt(cleanValue, 10);
+    
+    // 숫자가 아니면 원본 반환
+    if (isNaN(num)) {
+        return value;
+    }
+    
+    // 천 단위 구분 쉼표 추가
     return num.toLocaleString('ko-KR');
 }
 

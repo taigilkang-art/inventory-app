@@ -38,6 +38,12 @@ const elements = {
     colorList: document.getElementById('colorList')
 };
 
+// UI 상태 제어
+function setSearchEnabled(enabled) {
+    elements.partNumberInput.disabled = !enabled;
+    elements.searchBtn.disabled = !enabled;
+}
+
 // 초기화
 document.addEventListener('DOMContentLoaded', () => {
     elements.searchBtn.addEventListener('click', handleSearch);
@@ -53,13 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // sheet2의 A1 셀 데이터를 가져와서 placeholder에 표시
+    setSearchEnabled(false);
     loadPlaceholderText();
 });
 
 // sheet2의 A1 셀 데이터를 가져오는 함수
 async function loadPlaceholderText() {
     // 로딩 상태: 빨간 placeholder
-    elements.partNumberInput.classList.add('loading');
+    elements.partNumberInput.classList.add('ph-loading');
     elements.partNumberInput.placeholder = '잠시만 기다리세요';
 
     try {
@@ -87,19 +94,24 @@ async function loadPlaceholderText() {
         elements.partNumberInput.placeholder = '품번을 입력하세요';
     } finally {
         // ✅ 로딩 종료: placeholder 색상 기본으로 복귀
-        elements.partNumberInput.classList.remove('loading');
+        elements.partNumberInput.classList.remove('ph-loading');
+        setSearchEnabled(true);
     }
 }
 
 
 // 검색 처리
 async function handleSearch() {
+    if (elements.searchBtn.disabled) return;
+
     const partNumber = elements.partNumberInput.value.trim();
     
     if (!partNumber) {
         showError('품번을 입력해주세요.');
         return;
     }
+
+    setSearchEnabled(false);
 
     hideAll();
     showLoading();
@@ -117,6 +129,7 @@ async function handleSearch() {
         showError('데이터를 조회하는 중 오류가 발생했습니다. 네트워크 연결 및 설정을 확인해주세요.');
     } finally {
         hideLoading();
+        setSearchEnabled(true);
     }
 }
 
